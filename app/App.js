@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import RegisterNameScreen from './screens/RegisterNameScreen';
+import RegisterPhoneScreen from './screens/RegisterPhoneScreen';
+import HomeScreen from './screens/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import WorkoutScreen from './screens/WorkoutScreen';
+import { globalStyles } from './globalStyles';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+
+// bottom navbar and components
+function BottomTabNavigator() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator screenOptions={{headerShown: false}}>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Workout" component={WorkoutScreen}/>
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// screens 
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false, contentStyle: globalStyles.container}}>
+        <Stack.Screen name="RegisterName" component={RegisterNameScreen} />
+        <Stack.Screen name="RegisterPhone" component={RegisterPhoneScreen} />
+        <Stack.Screen name="HomeScreen" component={BottomTabNavigator}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
