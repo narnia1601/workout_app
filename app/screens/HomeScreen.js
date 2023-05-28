@@ -3,10 +3,13 @@ import Header from "../components/Header";
 import { StyleSheet } from "react-native";
 import { globalStyles } from "../globalStyles";
 
-export default function HomeScreen(){
+export default function HomeScreen({ navigation }){
+    const navigateToFriendsScreen = () => {
+        navigation.navigate('Friends')
+    }
     return (
         <SafeAreaView style={globalStyles.container}>
-            <Header title="Hello"></Header>
+            <Header title="Hello" icon={navigateToFriendsScreen}></Header>
         </SafeAreaView>
     )
 }

@@ -11,7 +11,7 @@ export default function RegisterPhoneScreen({ navigation }) {
       CommonActions.reset({
         index: 1,
         routes: [
-          { name: 'HomeScreen' },
+          { name: 'Home' },
         ],
       })
     );

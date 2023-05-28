@@ -1,12 +1,14 @@
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 export default function Header(props){
-   return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{props.title}</Text>
-            <Image source={require('../assets/friends.png')} style={styles.image} tintColor="white"></Image>
-        </View>    
-   )
+    return (
+          <View style={styles.container}>
+              <Text style={styles.title}>{props.title}</Text>
+              <TouchableOpacity onPress={props.icon}>
+                <Image source={require('../assets/friends.png')} style={styles.image} tintColor="white"></Image>
+              </TouchableOpacity>
+          </View>    
+    )
 }
 
 const styles = StyleSheet.create({

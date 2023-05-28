@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import WorkoutScreen from './screens/WorkoutScreen';
 import { globalStyles } from './globalStyles';
+import FriendsScreen from './screens/FriendsScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,7 +29,8 @@ export default function App() {
       <Stack.Navigator screenOptions={{headerShown: false, contentStyle: globalStyles.container}}>
         <Stack.Screen name="RegisterName" component={RegisterNameScreen} />
         <Stack.Screen name="RegisterPhone" component={RegisterPhoneScreen} />
-        <Stack.Screen name="HomeScreen" component={BottomTabNavigator}/>
+        <Stack.Screen name="Home" component={BottomTabNavigator}/>
+        <Stack.Screen name="Friends" component={FriendsScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
