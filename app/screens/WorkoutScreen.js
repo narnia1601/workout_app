@@ -4,7 +4,7 @@ import { globalStyles } from "../globalStyles";
 
 export default function WorkoutScreen({ navigation }){
     const navigateToNewWorkoutScreen = () => {
-        navigation.navigate('NewWorkout')
+        navigation.replace('NewWorkout')
     }
 
     return (

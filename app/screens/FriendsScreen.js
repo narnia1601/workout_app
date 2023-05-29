@@ -4,7 +4,7 @@ import Friend from "../components/Friend";
 
 export default function FriendsScreen({ navigation }){
     const navigateToHomeScreen = () => {
-        navigation.navigate('Tabs')
+        navigation.navigate('Home')
     }
 
     return (

@@ -1,16 +1,12 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Text } from "react-native";
+import { CommonActions } from "@react-navigation/native";
+import EndWorkoutButton from "../components/EndWorkoutButton";
 
-export default function NewWorkout(){
+export default function NewWorkout({ navigation }){
+    const navigateToWorkoutScreen = () => {
+        navigation.navigate('Tabs')
+    }
+
     return (
-        <SafeAreaView>
-            <Text style={styles.text}>New Workout</Text>
-        </SafeAreaView>
+        <EndWorkoutButton onclick={navigateToWorkoutScreen}></EndWorkoutButton>
     )
 }
-
-const styles = StyleSheet.create({
-    text: {
-        color: "white"
-    }
-})
