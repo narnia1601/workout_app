@@ -9,7 +9,7 @@ export default function HomeScreen({ navigation }){
     }
     return (
         <SafeAreaView style={globalStyles.container}>
-            <Header title="Hello" icon={navigateToFriendsScreen}></Header>
+            <Header title="Hello, User" icon={navigateToFriendsScreen}></Header>
             <Card text="Your friend has completed a workout!"></Card>
         </SafeAreaView>
     )

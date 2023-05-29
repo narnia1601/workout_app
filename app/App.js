@@ -8,6 +8,7 @@ import WorkoutScreen from './screens/WorkoutScreen';
 import { globalStyles } from './globalStyles';
 import FriendsScreen from './screens/FriendsScreen';
 import { Image, StyleSheet } from 'react-native';
+import NewWorkout from './screens/NewWorkout';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -44,6 +45,7 @@ export default function App() {
         <Stack.Screen name="RegisterPhone" component={RegisterPhoneScreen} />
         <Stack.Screen name="Tabs" component={BottomTabNavigator}/>
         <Stack.Screen name="Friends" component={FriendsScreen}/>
+        <Stack.Screen name='NewWorkout' component={NewWorkout}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
