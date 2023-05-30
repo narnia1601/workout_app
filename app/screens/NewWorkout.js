@@ -1,4 +1,3 @@
-import { CommonActions } from "@react-navigation/native";
 import EndWorkoutButton from "../components/EndWorkoutButton";
 
 export default function NewWorkout({ navigation }){
