@@ -21,8 +21,8 @@ export default function RegisterPhoneScreen({ navigation }) {
           <Text style={styles.heading2}>Welcome!</Text>
           <Text style={styles.heading2}>Enter your phone number to create an account</Text>
           <TextInput style={styles.input} keyboardType="numeric" placeholderTextColor='white' placeholder='Enter your number:'></TextInput>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText} onPress={navigateToHomeScreen}>Continue</Text>
+          <TouchableOpacity style={styles.button} onPress={navigateToHomeScreen}>
+            <Text style={styles.buttonText}>Continue</Text>
           </TouchableOpacity>
       </View>
       <StatusBar style="auto" />
