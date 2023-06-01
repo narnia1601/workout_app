@@ -2,9 +2,6 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar, Keyboar
 import { CommonActions } from '@react-navigation/native';
 
 export default function RegisterPhoneScreen({ navigation }) {
-  const dismissKeyboard = () => {
-    Keyboard.dismiss()
-  }
 
   const navigateToHomeScreen = () => {
     navigation.dispatch(
@@ -18,20 +15,18 @@ export default function RegisterPhoneScreen({ navigation }) {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <View style={styles.container}>
-        <View style={styles.component}>
-            <Text style={styles.heading}>TrainTogether</Text>
-            <Text style={styles.heading2}>Welcome!</Text>
-            <Text style={styles.heading2}>Enter your phone number to create an account</Text>
-            <TextInput style={styles.input} keyboardType="numeric" placeholderTextColor='white' placeholder='Enter your number:'></TextInput>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText} onPress={navigateToHomeScreen}>Continue</Text>
-            </TouchableOpacity>
-        </View>
-        <StatusBar style="auto" />
+    <View style={styles.container}>
+      <View style={styles.component}>
+          <Text style={styles.heading}>TrainTogether</Text>
+          <Text style={styles.heading2}>Welcome!</Text>
+          <Text style={styles.heading2}>Enter your phone number to create an account</Text>
+          <TextInput style={styles.input} keyboardType="numeric" placeholderTextColor='white' placeholder='Enter your number:'></TextInput>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText} onPress={navigateToHomeScreen}>Continue</Text>
+          </TouchableOpacity>
       </View>
-    </TouchableWithoutFeedback>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 

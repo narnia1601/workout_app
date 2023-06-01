@@ -7,11 +7,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import WorkoutScreen from './screens/WorkoutScreen';
 import { globalStyles } from './globalStyles';
 import FriendsScreen from './screens/FriendsScreen';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View, StatusBar, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import NewWorkout from './screens/NewWorkout';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
+
+const dismissKeyboard = () => {
+  Keyboard.dismiss()
+}
 
 
 // bottom navbar and components
@@ -39,15 +43,22 @@ function BottomTabNavigator() {
 // screens 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false, contentStyle: globalStyles.container}}>
-        <Stack.Screen name="RegisterName" component={RegisterNameScreen} />
-        <Stack.Screen name="RegisterPhone" component={RegisterPhoneScreen} />
-        <Stack.Screen name="Tabs" component={BottomTabNavigator}/>
-        <Stack.Screen name="Friends" component={FriendsScreen}/>
-        <Stack.Screen name='NewWorkout' component={NewWorkout}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{flex: 1}}>
+      <TouchableWithoutFeedback onPress={dismissKeyboard}>
+        <View style={{flex: 1}}>
+          <StatusBar barStyle='light-content'></StatusBar>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerShown: false, contentStyle: globalStyles.container}}>
+              <Stack.Screen name="RegisterName" component={RegisterNameScreen} />
+              <Stack.Screen name="RegisterPhone" component={RegisterPhoneScreen} />
+              <Stack.Screen name="Tabs" component={BottomTabNavigator}/>
+              <Stack.Screen name="Friends" component={FriendsScreen}/>
+              <Stack.Screen name='NewWorkout' component={NewWorkout}/>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }
 
