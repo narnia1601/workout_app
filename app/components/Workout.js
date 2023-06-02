@@ -29,13 +29,13 @@ export default function Workout(props){
                         return (
                         <View style={styles.row}>
                             <View style={styles.cell}>
-                                <TextInput keyboardType="numeric" style={styles.cellText} placeholderTextColor='white' placeholder={itemData.item.set}></TextInput>
+                                <Text style={styles.cellText}>{itemData.item.set}</Text>
                             </View>
                             <View style={styles.cell}>
-                                <TextInput keyboardType="numeric" style={styles.cellText} placeholderTextColor='white' placeholder={itemData.item.weight}></TextInput>
+                                <TextInput keyboardType="numeric" onChangeText={(text) => props.handleCellChange(text, "weight", itemData.index)} style={styles.cellText} placeholderTextColor='gray' placeholder={itemData.item.weight}></TextInput>
                             </View>
                             <View style={styles.cell}>
-                                <TextInput keyboardType="numeric" style={styles.cellText} placeholderTextColor='white' placeholder={itemData.item.reps}></TextInput>
+                                <TextInput keyboardType="numeric" onChangeText={(text) => props.handleCellChange(text, "reps", itemData.index)} style={styles.cellText} placeholderTextColor='gray' placeholder={itemData.item.reps}></TextInput>
                             </View>
                             <View style={styles.completedCell}>
                                 <BouncyCheckbox size={30} style={styles.checkbox}></BouncyCheckbox>
@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
     },
     cellText: {
         textAlign: 'center',
-        fontSize: 30
+        fontSize: 30,
+        color: 'white'
     },
     button: {
         backgroundColor: '#15202b',
