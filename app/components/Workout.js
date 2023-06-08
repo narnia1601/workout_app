@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StyleSheet, TextInput, View, Text, TouchableOpacity, FlatList } from "react-native";
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 
@@ -75,7 +76,8 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 18,
-        color: 'white'
+        color: 'white',
+        width: '70%'
     },
     title: {
         flexDirection: 'row',
