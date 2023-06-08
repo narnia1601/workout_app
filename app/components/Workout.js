@@ -6,7 +6,7 @@ export default function Workout(props){
         <View style={styles.workout}>
             <View style={styles.title}>
                 <Text style={styles.inputLabel}>Exercise:</Text>
-                <TextInput style={styles.input} placeholderTextColor='gray' placeholder="Bench Press"></TextInput>
+                <TextInput style={styles.input} placeholderTextColor='gray' placeholder={props.exerciseName}></TextInput>
             </View>
             <View style={styles.table}>
                 <View style={styles.row}>
@@ -49,6 +49,9 @@ export default function Workout(props){
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.removeSetButton} onPress={props.removeSet}>
                     <Text style={styles.buttonText}>Remove set</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.removeSetButton} onPress={() => props.deleteExercise(props.exerciseName)}>
+                    <Text style={styles.buttonText}>Delete Exercise</Text>
                 </TouchableOpacity>
             </View>
         </View>

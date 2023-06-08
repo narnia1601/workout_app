@@ -1,17 +1,49 @@
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Workout from "../components/Workout";
 import { useState } from "react";
+import { CommonActions } from "@react-navigation/native";
 
 export default function NewWorkout({ navigation }){
-    const [data, setData] = useState([
-        {
-            'set': '1',
-            'weight': '10',
-            'reps': '12'
-        },
-    ])
+    const [data, setData] = useState({
+        'Bench Press': [
+            {
+                'set': '1',
+                'weight': '10',
+                'reps': '12'
+            }
+        ]
+    })
+    const [dataArr, setDataArr] = useState(Object.keys(data).map((key) => ({key: key})))
+
     const navigateToWorkoutScreen = () => {
-        navigation.navigate('Tabs')
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 1,
+                routes: [
+                    { name: 'Tabs' }
+                ]
+            })
+        )
+    }
+
+    const addExercise = (exerciseName) => {
+        currentData = data
+        currentData[exerciseName] = [
+            {
+                'set': '1',
+                'weight': '-',
+                'reps': '-'
+            }
+        ]
+        setData(currentData)
+        setDataArr(Object.keys(data).map((key) => ({key: key})))
+    }
+
+    const deleteExercise = (exerciseName) => {
+        currentData = data
+        delete currentData[exerciseName]
+        setData(currentData)
+        setDataArr(Object.keys(data).map((key) => ({key: key})))
     }
 
     const addSet = () => {
@@ -44,21 +76,29 @@ export default function NewWorkout({ navigation }){
                 newData[idx]['reps'] = text
             }
         }
-        console.log(newData)
     }
 
     return (
-        <SafeAreaView>
+        <ScrollView contentContainerStyle={styles.container} scrollEventThrottle={40}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>New Workout</Text>
             </View>
-            <Workout data={data} addSet={addSet} handleCellChange={handleCellChange} removeSet={removeSet}></Workout>
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.button} onPress={navigateToWorkoutScreen}>
-                    <Text style={styles.buttonText}>End Workout</Text>
-                </TouchableOpacity>
-            </View>
-        </SafeAreaView>
+                <FlatList data={dataArr} renderItem={(itemData) => {
+                    return (
+                        <Workout data={data[itemData.item.key]} exerciseName={itemData.item.key} deleteExercise={deleteExercise}></Workout>
+                    )
+                }}></FlatList>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={() => addExercise('-')}>
+                        <Text style={styles.buttonText}>Add new exercise</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.endWorkoutButton} onPress={navigateToWorkoutScreen}>
+                        <Text style={styles.buttonText}>End Workout</Text>
+                    </TouchableOpacity>
+                </View>
+        </ScrollView>
     )
 }
 
@@ -73,19 +113,29 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     container: {
+        flexGrow: 1,
+        paddingBottom: 20
+    },
+    buttonContainer: {
         alignItems: 'center',
         justifyContent: 'center',
         padding: 16,
       },
-      button: {
+    endWorkoutButton: {
         backgroundColor: 'red',
+        paddingHorizontal: 73,
+        paddingVertical: 12,
+        borderRadius: 8,
+    },
+    button: {
+        backgroundColor: 'blue',
         paddingHorizontal: 50,
         paddingVertical: 12,
         borderRadius: 8,
-      },
-      buttonText: {
+    },
+    buttonText: {
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
-      },
+    },
 })
