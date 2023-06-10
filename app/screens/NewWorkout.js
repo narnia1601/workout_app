@@ -1,5 +1,4 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View, TextInput } from "react-native";
-import Workout from "../components/Workout";
 import { useState } from "react";
 import { CommonActions } from "@react-navigation/native";
 
@@ -25,6 +24,66 @@ export default function NewWorkout({ navigation }){
             })
         )
     }
+
+    const handleExerciseNameChange = (oldExerciseName, newExerciseName) => {
+        if (oldExerciseName !== newExerciseName) {
+          setData((prevData) => {
+            const updatedData = { ...prevData };
+            if (updatedData.hasOwnProperty(oldExerciseName)) {
+              const exerciseData = updatedData[oldExerciseName];
+              delete updatedData[oldExerciseName];
+              updatedData[newExerciseName] = exerciseData;
+            }
+            return updatedData;
+          });
+      
+          setDataArr((prevDataArr) => {
+            const updatedDataArr = [...prevDataArr];
+            const index = updatedDataArr.indexOf(oldExerciseName);
+            if (index !== -1) {
+              updatedDataArr[index] = newExerciseName;
+            }
+            return updatedDataArr;
+          });
+        }
+      };
+      
+
+    const handleWeightChange = (exerciseName, setIndex, weight) => {
+        setData((prevData) => {
+          const updatedData = {
+            ...prevData,
+            [exerciseName]: prevData[exerciseName].map((exercise, index) => {
+              if (index === setIndex) {
+                return {
+                  ...exercise,
+                  weight: weight.toString(),
+                };
+              }
+              return exercise;
+            }),
+          };
+          return updatedData;
+        });
+    };
+      
+      const handleRepsChange = (exerciseName, setIndex, reps) => {
+        setData((prevData) => {
+          const updatedData = {
+            ...prevData,
+            [exerciseName]: prevData[exerciseName].map((exercise, index) => {
+              if (index === setIndex) {
+                return {
+                  ...exercise,
+                  reps: reps.toString(),
+                };
+              }
+              return exercise;
+            }),
+          };
+          return updatedData;
+        });
+    };      
 
     const addSet = (exerciseName) => {
         setData(prevData => {
@@ -60,6 +119,20 @@ export default function NewWorkout({ navigation }){
         setDataArr(Object.keys(newData));
     };
 
+    const deleteExercise = (exerciseName) => {
+        const updatedData = { ...data };
+        const exerciseKey = Object.keys(updatedData).find(
+          (key) => key === exerciseName
+        );
+      
+        if (exerciseKey) {
+          delete updatedData[exerciseKey];
+          setData(updatedData);
+          const updatedDataArr = Object.keys(updatedData);
+          setDataArr(updatedDataArr);
+        }
+    };
+
     return (
         <FlatList
         data={dataArr}
@@ -73,7 +146,7 @@ export default function NewWorkout({ navigation }){
                 <View style={styles.workout}>
                     <View style={styles.title}>
                         <Text style={styles.inputLabel}>Exercise:</Text>
-                        <TextInput style={styles.input} placeholderTextColor='gray' placeholder={itemData.item}></TextInput>
+                        <TextInput style={styles.input} placeholderTextColor='gray' placeholder={itemData.item} onBlur={(e) => handleExerciseNameChange(itemData.item, e.nativeEvent.text)}></TextInput>
                     </View>
                     <View style={styles.table}>
                         <View style={styles.row}>
@@ -94,10 +167,10 @@ export default function NewWorkout({ navigation }){
                                         <Text style={styles.cellText}>{exercise.item.set}</Text>
                                     </View>
                                     <View style={styles.cell}>
-                                        <TextInput keyboardType="numeric" style={styles.cellText} placeholderTextColor='gray' placeholder={exercise.item.weight}></TextInput>
+                                        <TextInput keyboardType="numeric" style={styles.cellText} onChangeText={(text) => handleWeightChange(itemData.item, exercise.index, text)} placeholderTextColor='gray' placeholder={exercise.item.weight}></TextInput>
                                     </View>
                                     <View style={styles.cell}>
-                                        <TextInput keyboardType="numeric" style={styles.cellText} placeholderTextColor='gray' placeholder={exercise.item.reps}></TextInput>
+                                        <TextInput keyboardType="numeric" style={styles.cellText} onChangeText={(text) => handleRepsChange(itemData.item, exercise.index, text)} placeholderTextColor='gray' placeholder={exercise.item.reps}></TextInput>
                                     </View>
                                 </View>
                             )
@@ -109,7 +182,7 @@ export default function NewWorkout({ navigation }){
                     <TouchableOpacity style={styles.removeSetButton} onPress={() => removeSet(itemData.item)}>
                         <Text style={styles.buttonText}>Remove set</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.removeSetButton}>
+                    <TouchableOpacity style={styles.removeSetButton} onPress={() => deleteExercise(itemData.item)}>
                         <Text style={styles.buttonText}>Delete Exercise</Text>
                     </TouchableOpacity>
                 </View>
@@ -121,7 +194,7 @@ export default function NewWorkout({ navigation }){
                 <TouchableOpacity style={styles.newExerciseButton} onPress={addExercise}>
                     <Text style={styles.buttonText}>Add new exercise</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.endWorkoutButton}>
+                <TouchableOpacity style={styles.endWorkoutButton} onPress={navigateToWorkoutScreen}>
                     <Text style={styles.buttonText}>End Workout</Text>
                 </TouchableOpacity>
             </View>
