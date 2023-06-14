@@ -14,7 +14,7 @@ Before running the app, make sure you have the following software installed:
 
 ## Running the App
 1. Start the development server by running the following command:
-`npm expo start`
+`npm start`
 2. A QR code will be displayed in the terminal and the Expo Developer Tools page will open in your default web browser.
 3. Open the Expo Go app on your mobile device and scan the QR code using the built-in scanner. This will launch the app on your device.
 > Note: Make sure your mobile device and the development server are on the same network.

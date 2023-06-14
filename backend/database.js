@@ -7,9 +7,9 @@ var con = mysql.createConnection({
   password: "g:ZJ^CMoc`K1'ZS6",
   database: 'user_data',
   ssl: {
-    ca: fs.readFileSync("./server-ca.pem"),
-    key: fs.readFileSync("./client-key.pem"),
-    cert: fs.readFileSync("./client-cert.pem"),
+    ca: fs.readFileSync("./certificates/server-ca.pem"),
+    key: fs.readFileSync("./certificates/client-key.pem"),
+    cert: fs.readFileSync("./certificates/client-cert.pem"),
   },
 });
 
